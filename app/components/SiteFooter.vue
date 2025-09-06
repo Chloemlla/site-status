@@ -68,14 +68,47 @@ footer {
       transform: translateY(20px) scale(0.8);
       animation: bounce-in-footer 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 0;
+      }
       
       &:hover {
         transform: translateY(-5px) scale(1.15) rotate(10deg);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        
+        &::before {
+          width: 100%;
+          height: 100%;
+        }
+        
+        :deep(.n-button__content) {
+          color: var(--text-color-1);
+          position: relative;
+          z-index: 1;
+        }
       }
       
       &:active {
         transform: translateY(-2px) scale(1.05);
+      }
+      
+      :deep(.n-button__content) {
+        position: relative;
+        z-index: 1;
+        transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
     }
   }
