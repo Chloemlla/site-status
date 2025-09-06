@@ -32,14 +32,7 @@
       </n-p>
       <n-p depth="3">
         Copyright &copy; 2020 - {{ new Date().getFullYear() }}
-        <n-text depth="3" @click="jumpLink(linkData.home)"> IMSYY </n-text>
-        <n-text
-          v-if="siteIcp"
-          depth="3"
-          @click="jumpLink('https://beian.miit.gov.cn/')"
-        >
-          | {{ siteIcp }}
-        </n-text>
+        <n-text depth="3" @click="jumpLink(linkData.home)"> devhappys </n-text>
       </n-p>
     </n-flex>
   </footer>
@@ -47,12 +40,12 @@
 
 <script setup lang="ts">
 const { public: configPublic } = useRuntimeConfig();
-const { siteIcp, version } = configPublic;
+const { version } = configPublic;
 
 const linkData = {
-  github: "https://github.com/imsyy/site-status",
-  home: "https://www.imsyy.top",
-  email: "mailto:one@imsyy.top",
+  github: "https://github.com/devhappys/site-status",
+  home: "https://github.com/devhappys",
+  email: "mailto:noreply@hapxs.com",
 };
 </script>
 
