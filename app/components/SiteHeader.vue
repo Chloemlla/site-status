@@ -1,8 +1,8 @@
 <!-- 站点状态 -->
 <template>
-  <header id="header" :class="{ 'header-compact': !isAtTop }">
+  <header id="header">
     <!-- 背景 -->
-    <Transition name="slide-fade" mode="in-out">
+    <Transition name="fade" mode="in-out">
       <div
         :key="statusStore.siteStatus"
         :style="{ background: `var(--${statusStore.siteStatus}-cover)` }"
@@ -15,49 +15,46 @@
         <!-- 状态文本 -->
         <div class="status-text">
           <div class="point" />
-          <Transition name="bounce-in" mode="out-in">
+          <Transition name="fade" mode="out-in">
             <div :key="statusStore.siteStatus" class="text">
-              <span class="title" :class="{ 'title-compact': !isAtTop }">
+              <span class="title">
                 {{ siteGlobalText[statusStore.siteStatus] }}
               </span>
-              <div v-if="isAtTop" class="details">
-                <span v-if="statusStore.siteStatus === 'loading'" class="tip">
-                  {{ $t("header.loading") }}
+              <span v-if="statusStore.siteStatus === 'loading'" class="tip">
+                {{ $t("header.loading") }}
+              </span>
+              <span
+                v-else-if="statusStore.siteStatus === 'unknown'"
+                class="tip"
+              >
+                {{ $t("header.unknown") }}
+              </span>
+              <!-- 更新频率 -->
+              <n-flex v-else :size="0" class="tip" align="center">
+                <span>
+                  {{ $t("header.update") }}
+                  {{
+                    formatTime(statusStore.siteData?.timestamp || 0, {
+                      showTime: true,
+                      showOnlyTimeIfToday: true,
+                    })
+                  }}
                 </span>
-                <span
-                  v-else-if="statusStore.siteStatus === 'unknown'"
-                  class="tip"
+                <span>
+                  {{ $t("header.updateAt", { time: nextUpdateTime }) }}
+                </span>
+                <n-button
+                  :focusable="false"
+                  color="#fff"
+                  quaternary
+                  circle
+                  @click="refresh"
                 >
-                  {{ $t("header.unknown") }}
-                </span>
-                <!-- 更新频率 -->
-                <n-flex v-else :size="0" class="tip" align="center">
-                  <span>
-                    {{ $t("header.update") }}
-                    {{
-                      formatTime(statusStore.siteData?.timestamp || 0, {
-                        showTime: true,
-                        showOnlyTimeIfToday: true,
-                      })
-                    }}
-                  </span>
-                  <span>
-                    {{ $t("header.updateAt", { time: nextUpdateTime }) }}
-                  </span>
-                  <n-button
-                    :focusable="false"
-                    color="#fff"
-                    quaternary
-                    circle
-                    class="refresh-btn"
-                    @click="refresh"
-                  >
-                    <template #icon>
-                      <Icon name="icon:refresh" />
-                    </template>
-                  </n-button>
-                </n-flex>
-              </div>
+                  <template #icon>
+                    <Icon name="icon:refresh" />
+                  </template>
+                </n-button>
+              </n-flex>
             </div>
           </Transition>
         </div>
@@ -91,24 +88,6 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const statusStore = useStatusStore();
-
-// 滚动位置检测
-const isAtTop = ref(true);
-
-// 监听滚动事件
-const handleScroll = () => {
-  isAtTop.value = window.scrollY <= 50; // 当滚动距离小于等于50px时认为在顶部
-};
-
-// 组件挂载时添加滚动监听
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true });
-});
-
-// 组件卸载时移除滚动监听
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 
 // 倒计时
 const updateTime = ref<number>(300);
@@ -168,19 +147,6 @@ header {
   height: 44vh;
   width: 100%;
   color: white;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
-  &.header-compact {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 70px;
-    z-index: 99;
-    background: var(--main-card-color);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid var(--main-border-color);
-  }
   .status-cover {
     position: absolute;
     top: 0;
@@ -250,16 +216,6 @@ header {
           .title {
             font-size: 40px;
             font-weight: bold;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            
-            &.title-compact {
-              font-size: 24px;
-              line-height: 1.2;
-            }
-          }
-          
-          .details {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           }
           
           .tip {
@@ -285,54 +241,6 @@ header {
     }
   }
   
-  // 紧凑模式样式
-  &.header-compact {
-    color: var(--text-color-1);
-    
-    .status-cover {
-      display: none;
-    }
-    
-    .status-content {
-      padding: 10px 20px;
-      
-      .site-status {
-        align-items: center;
-        height: auto;
-        padding: 0;
-        
-        .status-text {
-          margin-bottom: 0;
-          
-          .point {
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            margin-right: 12px;
-            background-color: var(--primary-color);
-            
-            &::after {
-              background-color: var(--primary-color-hover);
-            }
-          }
-          
-          .text {
-            .title {
-              &.title-compact {
-                font-size: 18px;
-                line-height: 1.3;
-                color: var(--text-color-1);
-              }
-            }
-          }
-        }
-      }
-    }
-    
-    .waves-area {
-      display: none;
-    }
-  }
   .waves-area {
     width: 100%;
     height: 60px;
@@ -378,72 +286,6 @@ header {
   }
 }
 
-// 自定义过渡动画
-.slide-fade-enter-active {
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.slide-fade-leave-active {
-  transition: all 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-}
-
-.slide-fade-enter-from {
-  transform: translateX(-30px) scale(0.95);
-  opacity: 0;
-}
-
-.slide-fade-leave-to {
-  transform: translateX(30px) scale(1.05);
-  opacity: 0;
-}
-
-.bounce-in-enter-active {
-  animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.bounce-in-leave-active {
-  animation: bounce-out 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-}
-
-@keyframes bounce-in {
-  0% {
-    transform: scale(0.3) translateY(20px);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.05) translateY(-5px);
-  }
-  70% {
-    transform: scale(0.95) translateY(2px);
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes bounce-out {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.3) translateY(-20px);
-    opacity: 0;
-  }
-}
-
-.refresh-btn {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  
-  &:hover {
-    transform: rotate(180deg) scale(1.1);
-  }
-  
-  &:active {
-    transform: rotate(360deg) scale(0.95);
-  }
-}
 
 @keyframes move-forever {
   0% {

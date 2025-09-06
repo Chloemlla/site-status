@@ -56,10 +56,6 @@ const siteScroll = (e: Event) => {
   // 滚动高度
   const scrollTop = (e.target as HTMLElement).scrollTop;
   statusStore.scrollTop = scrollTop;
-  
-  // 动态调整body padding避免文字重叠
-  const isCompact = scrollTop > 50;
-  document.body.style.paddingTop = isCompact ? '70px' : '0px';
 };
 
 // 更改站点语言
