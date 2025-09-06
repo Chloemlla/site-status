@@ -1,16 +1,17 @@
 <!-- 导航栏 -->
 <template>
-  <nav
-    id="nav"
-    :class="{ scroll: statusStore.scrollTop > 0 }"
-    :style="{ color: iconColor }"
-    v-show="statusStore.scrollTop > 50"
-  >
-    <div class="nav-content">
-      <span class="logo">{{ config.public.siteTitle }}</span>
-      <n-flex align="center" justify="end">
+  <Transition name="slide-down">
+    <nav
+      id="nav"
+      :class="{ scroll: statusStore.scrollTop > 0 }"
+      :style="{ color: iconColor }"
+      v-show="statusStore.scrollTop > 50"
+    >
+      <div class="nav-content">
+        <span class="logo">{{ config.public.siteTitle }}</span>
+        <n-flex align="center" justify="end">
         <!-- 明暗切换 -->
-        <Transition name="fade" mode="out-in">
+        <Transition name="rotate-fade" mode="out-in">
           <n-button
             :key="themeIcon"
             :focusable="false"
@@ -18,6 +19,7 @@
             size="large"
             quaternary
             circle
+            class="nav-btn theme-btn"
             @click="toggleTheme"
           >
             <template #icon>
@@ -37,6 +39,7 @@
             size="large"
             quaternary
             circle
+            class="nav-btn lang-btn"
           >
             <template #icon>
               <Icon name="icon:language" />
@@ -51,6 +54,7 @@
             size="large"
             quaternary
             circle
+            class="nav-btn menu-btn"
           >
             <template #icon>
               <Icon name="icon:menu" />
@@ -60,6 +64,7 @@
       </n-flex>
     </div>
   </nav>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -174,5 +179,68 @@ nav {
       padding: 12px 20px;
     }
   }
+}
+
+// 导航栏动画
+.slide-down-enter-active {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-down-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.slide-down-enter-from {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.slide-down-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+// 按钮动画
+.nav-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  &:hover {
+    transform: scale(1.1) translateY(-2px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.theme-btn:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+.lang-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+}
+
+.menu-btn:hover {
+  transform: scale(1.1) rotate(-15deg);
+}
+
+// 主题切换动画
+.rotate-fade-enter-active {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.rotate-fade-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.rotate-fade-enter-from {
+  transform: rotate(-180deg) scale(0.5);
+  opacity: 0;
+}
+
+.rotate-fade-leave-to {
+  transform: rotate(180deg) scale(0.5);
+  opacity: 0;
 }
 </style>

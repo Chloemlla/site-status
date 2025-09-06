@@ -2,7 +2,7 @@
 <template>
   <header id="header" :class="{ 'header-hidden': isAtTop }" v-show="!isAtTop">
     <!-- 背景 -->
-    <Transition name="fade" mode="in-out">
+    <Transition name="slide-fade" mode="in-out">
       <div
         :key="statusStore.siteStatus"
         :style="{ background: `var(--${statusStore.siteStatus}-cover)` }"
@@ -15,7 +15,7 @@
         <!-- 状态文本 -->
         <div class="status-text">
           <div class="point" />
-          <Transition name="fade" mode="out-in">
+          <Transition name="bounce-in" mode="out-in">
             <div :key="statusStore.siteStatus" class="text">
               <span class="title">
                 {{ siteGlobalText[statusStore.siteStatus] }}
@@ -48,6 +48,7 @@
                   color="#fff"
                   quaternary
                   circle
+                  class="refresh-btn"
                   @click="refresh"
                 >
                   <template #icon>
@@ -289,6 +290,93 @@ header {
         fill: var(--main-bg-color);
       }
     }
+  }
+}
+
+// 自定义过渡动画
+.slide-fade-enter-active {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-fade-leave-active {
+  transition: all 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.slide-fade-enter-from {
+  transform: translateX(-30px) scale(0.95);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(30px) scale(1.05);
+  opacity: 0;
+}
+
+.bounce-in-enter-active {
+  animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.bounce-in-leave-active {
+  animation: bounce-out 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3) translateY(20px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  70% {
+    transform: scale(0.95) translateY(2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+.refresh-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  &:hover {
+    transform: rotate(180deg) scale(1.1);
+  }
+  
+  &:active {
+    transform: rotate(360deg) scale(0.95);
+  }
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
   }
 }
 </style>
