@@ -93,7 +93,112 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+/* 自定义字体定义 */
+@font-face {
+  font-family: '1666963922';
+  src: url('https://jsd.cdn.zzko.cn/gh/54ayao/ACG@main/static/fonts/1666963922.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 全局样式 */
+body {
+  font-family: '1666963922', sans-serif; /* 使用自定义字体 */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://www.loliapi.com/acg/'); /* 自适应背景图片API */
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* 导航栏链接悬停样式 */
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+/* 卡片标题样式 */
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 在明亮主题下，应用不同的背景色及75%透明度 */
+.shadow-box {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+/* 在暗色主题下，应用不同的背景色及65%透明度 */
+.dark .shadow-box:not(.alert) {
+  background-color: rgba(0, 0, 0, 0.65);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 特定元素和类的样式 */
+span[data-v-7d4a7f28],
+.item-name,
+div.description[data-v-7d4a7f28][data-v-b8247e57][contenteditable="true"],
+div[data-v-7d4a7f28][data-v-b8247e57].alert-heading.p-2,
+.refresh-info > div,
+.alert-heading.p-2 > div,
+.alert-heading.p-2 > p,
+.alert-heading.p-2 > h1 {
+  background-image: linear-gradient(90deg, #07c160, #fb6bea 25%, #3aedff 50%, #fb6bea 75%, #28d079);
+  font-family: '1666963922', sans-serif;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 400% 100%;
+  animation: wzw 10s linear infinite;
+}
+
+/* 动画关键帧定义 */
+@keyframes wzw {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#app {
+  font-family: '1666963922', BlinkMacSystemFont, 'segoe ui', Roboto, 'helvetica neue', Arial, 'noto sans', sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol', 'noto color emoji' !important;
+}
+
 main {
   width: 100%;
   height: 100%;
