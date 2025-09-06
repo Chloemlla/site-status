@@ -7,6 +7,8 @@
         :focusable="false"
         quaternary
         circle
+        class="footer-btn"
+        :style="{ animationDelay: `${index * 0.1}s` }"
         @click="jumpLink(item)"
       >
         <template #icon>
@@ -57,6 +59,27 @@ footer {
   padding: 60px 20px 90px;
   margin-top: auto;
   z-index: 100;
+  opacity: 0;
+  animation: fade-in-up 1s ease-out 0.5s forwards;
+  
+  .link {
+    .footer-btn {
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+      animation: bounce-in-footer 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      
+      &:hover {
+        transform: translateY(-5px) scale(1.15) rotate(10deg);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      
+      &:active {
+        transform: translateY(-2px) scale(1.05);
+      }
+    }
+  }
+  
   .text {
     margin-top: 12px;
     .n-p,
@@ -68,10 +91,42 @@ footer {
     .n-text {
       font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      
       &:hover {
         color: var(--normal-color);
+        transform: scale(1.05);
       }
     }
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in-footer {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.1);
+  }
+  80% {
+    transform: translateY(2px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 </style>

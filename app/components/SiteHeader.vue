@@ -1,6 +1,6 @@
 <!-- 站点状态 -->
 <template>
-  <header id="header" :class="{ 'header-hidden': isAtTop }" v-show="!isAtTop">
+  <header id="header" :class="{ 'header-compact': !isAtTop }">
     <!-- 背景 -->
     <Transition name="slide-fade" mode="in-out">
       <div
@@ -17,45 +17,47 @@
           <div class="point" />
           <Transition name="bounce-in" mode="out-in">
             <div :key="statusStore.siteStatus" class="text">
-              <span class="title">
+              <span class="title" :class="{ 'title-compact': !isAtTop }">
                 {{ siteGlobalText[statusStore.siteStatus] }}
               </span>
-              <span v-if="statusStore.siteStatus === 'loading'" class="tip">
-                {{ $t("header.loading") }}
-              </span>
-              <span
-                v-else-if="statusStore.siteStatus === 'unknown'"
-                class="tip"
-              >
-                {{ $t("header.unknown") }}
-              </span>
-              <!-- 更新频率 -->
-              <n-flex v-else :size="0" class="tip" align="center">
-                <span>
-                  {{ $t("header.update") }}
-                  {{
-                    formatTime(statusStore.siteData?.timestamp || 0, {
-                      showTime: true,
-                      showOnlyTimeIfToday: true,
-                    })
-                  }}
+              <div v-if="isAtTop" class="details">
+                <span v-if="statusStore.siteStatus === 'loading'" class="tip">
+                  {{ $t("header.loading") }}
                 </span>
-                <span>
-                  {{ $t("header.updateAt", { time: nextUpdateTime }) }}
-                </span>
-                <n-button
-                  :focusable="false"
-                  color="#fff"
-                  quaternary
-                  circle
-                  class="refresh-btn"
-                  @click="refresh"
+                <span
+                  v-else-if="statusStore.siteStatus === 'unknown'"
+                  class="tip"
                 >
-                  <template #icon>
-                    <Icon name="icon:refresh" />
-                  </template>
-                </n-button>
-              </n-flex>
+                  {{ $t("header.unknown") }}
+                </span>
+                <!-- 更新频率 -->
+                <n-flex v-else :size="0" class="tip" align="center">
+                  <span>
+                    {{ $t("header.update") }}
+                    {{
+                      formatTime(statusStore.siteData?.timestamp || 0, {
+                        showTime: true,
+                        showOnlyTimeIfToday: true,
+                      })
+                    }}
+                  </span>
+                  <span>
+                    {{ $t("header.updateAt", { time: nextUpdateTime }) }}
+                  </span>
+                  <n-button
+                    :focusable="false"
+                    color="#fff"
+                    quaternary
+                    circle
+                    class="refresh-btn"
+                    @click="refresh"
+                  >
+                    <template #icon>
+                      <Icon name="icon:refresh" />
+                    </template>
+                  </n-button>
+                </n-flex>
+              </div>
             </div>
           </Transition>
         </div>
@@ -166,6 +168,18 @@ header {
   height: 44vh;
   width: 100%;
   color: white;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &.header-compact {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    z-index: 99;
+    background: rgba(var(--cover-fill-color), 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
   .status-cover {
     position: absolute;
     top: 0;
@@ -186,16 +200,22 @@ header {
     max-width: 900px;
     margin: 0 auto;
     padding: 30px 20px 80px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
     .site-status {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       padding: 0 20px;
       height: 100%;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      
       .status-text {
         display: flex;
         align-items: center;
         margin-bottom: 12px;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        
         .point {
           position: relative;
           width: 40px;
@@ -204,6 +224,8 @@ header {
           background-color: #fff;
           border-radius: 50%;
           margin-right: 30px;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          
           &::after {
             content: "";
             background-color: #ffffff80;
@@ -219,13 +241,26 @@ header {
             transition: background-color 1s;
           }
         }
+        
         .text {
           display: flex;
           flex-direction: column;
+          
           .title {
             font-size: 40px;
             font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            
+            &.title-compact {
+              font-size: 24px;
+              line-height: 1.2;
+            }
           }
+          
+          .details {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          }
+          
           .tip {
             font-size: 14px;
             opacity: 0.8;
@@ -246,6 +281,33 @@ header {
           }
         }
       }
+    }
+  }
+  
+  // 紧凑模式样式
+  &.header-compact {
+    .status-content {
+      padding: 15px 20px;
+      
+      .site-status {
+        align-items: center;
+        height: auto;
+        
+        .status-text {
+          margin-bottom: 0;
+          
+          .point {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+    
+    .waves-area {
+      display: none;
     }
   }
   .waves-area {

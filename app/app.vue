@@ -15,7 +15,7 @@
       </Transition>
       <!-- 主内容 -->
       <main v-if="siteLoaded" id="main">
-        <Transition name="fade" mode="out-in">
+        <Transition name="content-fade" mode="out-in">
           <!-- 密码验证 -->
           <SiteLogin v-if="!statusStore.loginStatus" />
           <!-- 站点卡片 -->
@@ -56,6 +56,10 @@ const siteScroll = (e: Event) => {
   // 滚动高度
   const scrollTop = (e.target as HTMLElement).scrollTop;
   statusStore.scrollTop = scrollTop;
+  
+  // 动态调整body padding避免文字重叠
+  const isCompact = scrollTop > 50;
+  document.body.style.paddingTop = isCompact ? '80px' : '0px';
 };
 
 // 更改站点语言
@@ -179,19 +183,78 @@ div[data-v-7d4a7f28][data-v-b8247e57].alert-heading.p-2,
   -webkit-background-clip: text;
   background-clip: text;
   background-size: 400% 100%;
-  animation: wzw 10s linear infinite;
+  animation: breathing 10s linear infinite;
 }
 
 /* 动画关键帧定义 */
-@keyframes wzw {
-  0% {
-    background-position: 0% 50%;
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
   }
   50% {
-    background-position: 100% 50%;
+    transform: scale(1.2);
+    opacity: 0.4;
   }
-  100% {
-    background-position: 0% 50%;
+}
+
+// 页面过渡动画
+.slide-fade-header-enter-active {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-fade-header-leave-active {
+  transition: all 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.slide-fade-header-enter-from {
+  transform: translateY(-50px);
+  opacity: 0;
+}
+
+.content-fade-enter-active {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.content-fade-leave-active {
+  transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.content-fade-enter-from {
+  transform: translateY(20px) scale(0.98);
+  opacity: 0;
+}
+
+.content-fade-leave-to {
+  transform: translateY(-20px) scale(1.02);
+  opacity: 0;
+}
+
+// 全局页面加载动画
+.fade-enter-active {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+// 回到顶部按钮增强
+:global(.n-back-top) {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  &:hover {
+    transform: scale(1.1) translateY(-2px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
   }
 }
 
