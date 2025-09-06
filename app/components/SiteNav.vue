@@ -91,19 +91,19 @@ const navMenu = computed<DropdownOption[]>(() => [
       onClick: () => window.open("https://github.com/imsyy/site-status"),
     },
   },
-  {
-    key: "about",
-    label: t("nav.about"),
-    icon: renderIcon("icon:info"),
-    props: {
-      onClick: () => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
-      },
-    },
-  },
+  // {
+  //   key: "about",
+  //   label: t("nav.about"),
+  //   icon: renderIcon("icon:info"),
+  //   props: {
+  //     onClick: () => {
+  //       window.scrollTo({
+  //         top: document.body.scrollHeight,
+  //         behavior: 'smooth'
+  //       });
+  //     },
+  //   },
+  // },
   // {
   //   key: "logout",
   //   label: t("nav.logout"),
