@@ -34,17 +34,63 @@
   -webkit-user-drag: none;
 }
 
+html {
+  font-size: 16px;
+  
+  // 响应式字体缩放
+  @media screen and (max-width: 1920px) {
+    font-size: 16px;
+  }
+  
+  @media screen and (max-width: 1440px) {
+    font-size: 15px;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    font-size: 14px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    font-size: 12px;
+  }
+  
+  @media screen and (max-width: 320px) {
+    font-size: 11px;
+  }
+}
+
 body {
   width: 100%;
   height: 100%;
   background-color: var(--main-bg-color);
   overflow: hidden;
+  
+  // 响应式适配
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  
+  // 平滑滚动
+  scroll-behavior: smooth;
 }
 
 #nuxt-app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  
+  // 响应式容器
+  @media screen and (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+  
+  @media screen and (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 }
 
 .n-scrollbar {

@@ -1,6 +1,6 @@
 <!-- 站点状态 -->
 <template>
-  <header id="header">
+  <header id="header" :class="{ 'header-hidden': isAtTop }" v-show="!isAtTop">
     <!-- 背景 -->
     <Transition name="fade" mode="in-out">
       <div
@@ -88,6 +88,24 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const statusStore = useStatusStore();
+
+// 滚动位置检测
+const isAtTop = ref(true);
+
+// 监听滚动事件
+const handleScroll = () => {
+  isAtTop.value = window.scrollY <= 50; // 当滚动距离小于等于50px时认为在顶部
+};
+
+// 组件挂载时添加滚动监听
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true });
+});
+
+// 组件卸载时移除滚动监听
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 
 // 倒计时
 const updateTime = ref<number>(300);

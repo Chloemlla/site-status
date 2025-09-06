@@ -4,6 +4,7 @@
     id="nav"
     :class="{ scroll: statusStore.scrollTop > 0 }"
     :style="{ color: iconColor }"
+    v-show="statusStore.scrollTop > 50"
   >
     <div class="nav-content">
       <span class="logo">{{ config.public.siteTitle }}</span>

@@ -98,5 +98,64 @@ main {
   width: 100%;
   height: 100%;
   flex: 1;
+  
+  // 响应式主容器
+  @media screen and (max-width: 1200px) {
+    padding: 0 1rem;
+  }
+  
+  @media screen and (max-width: 768px) {
+    padding: 0 0.75rem;
+  }
+  
+  @media screen and (max-width: 480px) {
+    padding: 0 0.5rem;
+  }
+}
+
+// 全局响应式工具类
+:global(.responsive-container) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media screen and (max-width: 1200px) {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    padding: 0 12px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    padding: 0 8px;
+  }
+}
+
+// 响应式文字大小
+:global(.text-responsive) {
+  font-size: 1rem;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+  
+  @media screen and (max-width: 480px) {
+    font-size: 0.85rem;
+  }
+}
+
+// 响应式间距
+:global(.spacing-responsive) {
+  padding: 1rem;
+  
+  @media screen and (max-width: 768px) {
+    padding: 0.75rem;
+  }
+  
+  @media screen and (max-width: 480px) {
+    padding: 0.5rem;
+  }
 }
 </style>
