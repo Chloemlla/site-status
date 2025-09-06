@@ -174,11 +174,12 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    height: 80px;
+    height: 70px;
     z-index: 99;
-    background: rgba(var(--cover-fill-color), 0.95);
+    background: var(--main-card-color);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--main-border-color);
   }
   .status-cover {
     position: absolute;
@@ -286,21 +287,43 @@ header {
   
   // 紧凑模式样式
   &.header-compact {
+    color: var(--text-color-1);
+    
+    .status-cover {
+      display: none;
+    }
+    
     .status-content {
-      padding: 15px 20px;
+      padding: 10px 20px;
       
       .site-status {
         align-items: center;
         height: auto;
+        padding: 0;
         
         .status-text {
           margin-bottom: 0;
           
           .point {
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-right: 12px;
+            background-color: var(--primary-color);
+            
+            &::after {
+              background-color: var(--primary-color-hover);
+            }
+          }
+          
+          .text {
+            .title {
+              &.title-compact {
+                font-size: 18px;
+                line-height: 1.3;
+                color: var(--text-color-1);
+              }
+            }
           }
         }
       }
