@@ -112,7 +112,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  background-image: url('https://www.loliapi.com/acg/'); /* 自适应背景图片API */
+  background-image: url('https://t.alcy.cc/ycy'); /* 自适应背景图片API */
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
