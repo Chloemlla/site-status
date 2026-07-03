@@ -7,7 +7,7 @@ import pkg from "./package.json";
 
 // site env
 const siteConfig = {
-  siteTitle: process.env.SITE_TITLE || "Happy Status - 站点监测",
+  siteTitle: process.env.SITE_TITLE || "Chloemlla Status - 站点监测",
   siteDescription: process.env.SITE_DESCRIPTION || "一个简约的站点监测",
   siteKeywords: process.env.SITE_KEYWORDS || "站点监测,监测,监控",
   siteLogo: process.env.SITE_LOGO || "/favicon.ico",
@@ -53,7 +53,8 @@ export default defineNuxtConfig({
         },
         {
           name: "viewport",
-          content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
+          content:
+            "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
         },
         {
           name: "theme-color",
@@ -75,9 +76,9 @@ export default defineNuxtConfig({
         // manifest
         process.env.NODE_ENV !== "development"
           ? {
-            rel: "manifest",
-            href: "/manifest.webmanifest",
-          }
+              rel: "manifest",
+              href: "/manifest.webmanifest",
+            }
           : undefined,
       ],
       htmlAttrs: {

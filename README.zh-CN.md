@@ -17,7 +17,7 @@
 
 > Demo password: `123456`
 
-- [Happy Status - 站点监测](https://status.imsyy.top/)
+- [Chloemlla Status - 站点监测](https://status.imsyy.top/)
 
 ## 🎉 特色
 
