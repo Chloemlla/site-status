@@ -151,6 +151,9 @@ export default defineNuxtConfig({
   },
   // pwa
   pwa: {
+    workbox: {
+      navigateFallback: null,
+    },
     manifest: {
       name: siteConfig.siteTitle,
       short_name: siteConfig.siteDescription,
