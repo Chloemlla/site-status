@@ -22,7 +22,7 @@
         </span>
         <span>
           Copyright &copy; 2020 - {{ new Date().getFullYear() }}
-          <button type="button" @click="jumpLink(linkData.home)">devhappys</button>
+          <button type="button" @click="jumpLink(linkData.home)">Chloemlla</button>
         </span>
       </div>
 
@@ -50,8 +50,8 @@ const { public: configPublic } = useRuntimeConfig();
 const { version } = configPublic;
 
 const linkData = {
-  github: "https://github.com/devhappys/site-status",
-  home: "https://github.com/devhappys",
+  github: "https://github.com/Chloemlla/site-status",
+  home: "https://github.com/Chloemlla",
   email: "mailto:noreply@hapxs.com",
 };
 </script>

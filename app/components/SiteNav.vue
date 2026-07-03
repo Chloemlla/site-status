@@ -90,7 +90,7 @@ const navMenu = computed<DropdownOption[]>(() => [
     label: "GitHub",
     icon: renderIcon("icon:github"),
     props: {
-      onClick: () => window.open("https://github.com/devhappys/site-status"),
+      onClick: () => window.open("https://github.com/Chloemlla/site-status"),
     },
   },
   // {
@@ -232,13 +232,13 @@ nav {
     background-color 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
-  
+
   &:hover {
     border-color: var(--mian-border-color);
     background-color: color-mix(in srgb, currentColor 8%, transparent);
     transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(0) scale(0.98);
   }
