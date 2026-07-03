@@ -9,13 +9,21 @@
   },
   "nav": {
     "about": "关于本站",
-    "logout": "退出登录"
+    "logout": "退出登录",
+    "theme": "切换主题",
+    "language": "切换语言",
+    "menu": "打开菜单"
   },
   "header": {
     "loading": "请稍等片刻 ...",
     "unknown": "这可能是临时性问题，请刷新后重试",
     "update": "更新于",
-    "updateAt": "将于 {time} 后刷新"
+    "updateAt": "将于 {time} 后刷新",
+    "metrics": {
+      "total": "监测总数",
+      "normal": "运行正常",
+      "issues": "需要关注"
+    }
   },
   "footer": {
     "basedOn": "基于",
@@ -24,6 +32,8 @@
     "fiveMinutes": "5 分钟"
   },
   "card": {
+    "overview": "监测概览",
+    "monitors": "{count} 个监测项",
     "unknownDate": "未知日期",
     "unknownData": "当日无数据",
     "percent": "当日可用率 {percent}%",

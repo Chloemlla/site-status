@@ -5,7 +5,6 @@
       id="nav"
       :class="{ scroll: statusStore.scrollTop > 0 }"
       :style="{ color: iconColor }"
-      v-show="statusStore.scrollTop > 50"
     >
       <div class="nav-content">
         <span class="logo">{{ config.public.siteTitle }}</span>
@@ -20,6 +19,7 @@
             quaternary
             circle
             class="nav-btn theme-btn"
+            :aria-label="$t('nav.theme')"
             @click="toggleTheme"
           >
             <template #icon>
@@ -40,6 +40,7 @@
             quaternary
             circle
             class="nav-btn lang-btn"
+            :aria-label="$t('nav.language')"
           >
             <template #icon>
               <Icon name="icon:language" />
@@ -55,6 +56,7 @@
             quaternary
             circle
             class="nav-btn menu-btn"
+            :aria-label="$t('nav.menu')"
           >
             <template #icon>
               <Icon name="icon:menu" />
@@ -88,7 +90,7 @@ const navMenu = computed<DropdownOption[]>(() => [
     label: "GitHub",
     icon: renderIcon("icon:github"),
     props: {
-      onClick: () => window.open("https://github.com/imsyy/site-status"),
+      onClick: () => window.open("https://github.com/devhappys/site-status"),
     },
   },
   // {
@@ -159,32 +161,47 @@ nav {
   left: 0;
   width: 100%;
   z-index: 100;
+  color: var(--main-text-color);
   transition:
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
   .nav-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 900px;
+    width: min(1120px, calc(100% - 40px));
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 20px 0;
     transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
   .logo {
-    font-size: 20px;
-    font-weight: bold;
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 0;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     @media (max-width: 512px) {
-      font-size: 16px;
+      max-width: 52vw;
+      font-size: 14px;
     }
   }
+
   &.scroll {
-    background-color: var(--main-card-color);
+    background-color: var(--main-elevated-color);
     border-bottom: solid 1px var(--mian-border-color);
-    box-shadow: 0px 0px 8px 4px var(--main-box-shadow);
+    box-shadow: 0 12px 36px var(--main-box-shadow);
+    backdrop-filter: var(--main-backdrop-blur);
+
     .nav-content {
-      padding: 12px 20px;
+      padding: 10px 0;
     }
   }
 }
@@ -210,45 +227,51 @@ nav {
 
 // 按钮动画
 .nav-btn {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
   
   &:hover {
-    transform: scale(1.1) translateY(-2px);
+    border-color: var(--mian-border-color);
+    background-color: color-mix(in srgb, currentColor 8%, transparent);
+    transform: translateY(-1px);
   }
   
   &:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
   }
 }
 
 .theme-btn:hover {
-  transform: scale(1.1) rotate(180deg);
+  transform: translateY(-1px);
 }
 
 .lang-btn:hover {
-  transform: scale(1.1) rotate(15deg);
+  transform: translateY(-1px);
 }
 
 .menu-btn:hover {
-  transform: scale(1.1) rotate(-15deg);
+  transform: translateY(-1px);
 }
 
 // 主题切换动画
 .rotate-fade-enter-active {
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.24s ease;
 }
 
 .rotate-fade-leave-active {
-  transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  transition: all 0.18s ease;
 }
 
 .rotate-fade-enter-from {
-  transform: rotate(-180deg) scale(0.5);
+  transform: rotate(-30deg) scale(0.88);
   opacity: 0;
 }
 
 .rotate-fade-leave-to {
-  transform: rotate(180deg) scale(0.5);
+  transform: rotate(30deg) scale(0.88);
   opacity: 0;
 }
 </style>

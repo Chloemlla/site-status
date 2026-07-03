@@ -9,13 +9,21 @@
   },
   "nav": {
     "about": "About this site",
-    "logout": "Logout"
+    "logout": "Logout",
+    "theme": "Switch theme",
+    "language": "Switch language",
+    "menu": "Open menu"
   },
   "header": {
     "loading": "Please wait a moment ...",
     "unknown": "This might be a temporary issue. Please try refreshing.",
     "update": "Updated at",
-    "updateAt": "Will refresh in {time}"
+    "updateAt": "Will refresh in {time}",
+    "metrics": {
+      "total": "Total monitors",
+      "normal": "Operational",
+      "issues": "Needs attention"
+    }
   },
   "footer": {
     "basedOn": "Based on",
@@ -24,6 +32,8 @@
     "fiveMinutes": "5 minutes"
   },
   "card": {
+    "overview": "Monitor overview",
+    "monitors": "{count} monitors",
     "unknownDate": "Unknown date",
     "unknownData": "No data for today",
     "percent": "Daily availability {percent}%",

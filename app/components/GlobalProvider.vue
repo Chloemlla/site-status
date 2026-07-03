@@ -63,7 +63,38 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => ({
   common: {
     bodyColor: "var(--main-bg-color)",
     cardColor: "var(--main-card-color)",
-    borderRadius: "8px",
+    textColorBase: "var(--main-text-color)",
+    textColor1: "var(--main-text-color)",
+    textColor2: "var(--main-muted-color)",
+    textColor3: "var(--main-subtle-color)",
+    borderColor: "var(--mian-border-color)",
+    dividerColor: "var(--mian-border-color)",
+    primaryColor: "var(--normal-color)",
+    primaryColorHover: "var(--normal-color)",
+    primaryColorPressed: "var(--normal-color)",
+    primaryColorSuppl: "var(--normal-color)",
+    borderRadius: "12px",
+    borderRadiusSmall: "8px",
+    fontFamily: "var(--font-sans)",
+  },
+  Card: {
+    borderRadius: "24px",
+    color: "var(--main-card-color)",
+    colorEmbedded: "var(--main-card-color)",
+    boxShadow: "var(--main-card-shadow)",
+  },
+  Button: {
+    borderRadiusMedium: "12px",
+    borderRadiusLarge: "14px",
+    fontWeightStrong: "800",
+  },
+  Input: {
+    borderRadius: "14px",
+    color: "var(--main-elevated-color)",
+    colorFocus: "var(--main-elevated-color)",
+  },
+  Tag: {
+    borderRadius: "999px",
   },
 }));
 

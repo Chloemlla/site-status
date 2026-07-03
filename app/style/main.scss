@@ -1,102 +1,135 @@
 :root {
-  --main-bg-color: rgb(247, 247, 247);
-  --main-card-color: rgb(255, 255, 255);
-  --mian-border-color: rgba(255, 255, 255, 0.09);
-  --main-box-shadow: rgba(0, 0, 0, 0.1);
-  --cover-fill-color: 247, 247, 247;
-  // 背景
-  --loading-cover: radial-gradient(circle, #00c6ff, #0072ff, #00d2ff, #00b0ff);
-  --error-cover: radial-gradient(circle, #ff4b5c, #ff2a3b, #ff6f5e, #f15239);
-  --warn-cover: radial-gradient(circle, #ffa500, #ff8c00, #ff7f00, #ff6600);
-  --unknown-cover: radial-gradient(circle, #7f8c8d, #b5b5b5, #858c8d, #34495e);
-  --normal-cover: radial-gradient(circle, #2ecc71, #27ae60, #16a085, #1abc9c);
-  // 主颜色
-  --loading-color: #58d0ff;
-  --normal-color: #3bd672;
-  --error-color: #de484a;
-  --warn-color: #f39c12;
-  --unknown-color: #7f8c8d;
-  // 深色模式
+  color-scheme: light;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+
+  --main-bg-color: #f6f8fb;
+  --main-card-color: rgba(255, 255, 255, 0.86);
+  --main-card-solid-color: #ffffff;
+  --main-elevated-color: rgba(255, 255, 255, 0.94);
+  --main-text-color: #162033;
+  --main-muted-color: #64748b;
+  --main-subtle-color: #94a3b8;
+  --mian-border-color: rgba(15, 23, 42, 0.09);
+  --main-box-shadow: rgba(15, 23, 42, 0.1);
+  --main-soft-shadow: 0 18px 50px rgba(15, 23, 42, 0.1);
+  --main-card-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+  --main-hover-shadow: 0 24px 56px rgba(15, 23, 42, 0.14);
+  --main-backdrop-blur: blur(18px) saturate(150%);
+  --cover-fill-color: 246, 248, 251;
+  --app-bg-image: url("https://t.alcy.cc/ycy");
+
+  --loading-cover: linear-gradient(135deg, #0ea5e9 0%, #2563eb 48%, #14b8a6 100%);
+  --error-cover: linear-gradient(135deg, #ef4444 0%, #dc2626 48%, #f97316 100%);
+  --warn-cover: linear-gradient(135deg, #f59e0b 0%, #ea580c 48%, #f97316 100%);
+  --unknown-cover: linear-gradient(135deg, #64748b 0%, #475569 48%, #334155 100%);
+  --normal-cover: linear-gradient(135deg, #22c55e 0%, #16a34a 45%, #0f766e 100%);
+
+  --loading-color: #0ea5e9;
+  --normal-color: #16a34a;
+  --error-color: #dc2626;
+  --warn-color: #d97706;
+  --unknown-color: #64748b;
+
   &.dark-mode {
-    --main-bg-color: rgb(36, 36, 36);
-    --main-card-color: rgb(66, 66, 66);
-    --mian-border-color: rgba(0, 0, 0, 0.1);
-    --cover-fill-color: 36, 36, 36;
-    --cover-filter: brightness(80%);
+    color-scheme: dark;
+    --main-bg-color: #0f172a;
+    --main-card-color: rgba(15, 23, 42, 0.78);
+    --main-card-solid-color: #111827;
+    --main-elevated-color: rgba(15, 23, 42, 0.92);
+    --main-text-color: #e5eefb;
+    --main-muted-color: #94a3b8;
+    --main-subtle-color: #64748b;
+    --mian-border-color: rgba(148, 163, 184, 0.16);
+    --main-box-shadow: rgba(0, 0, 0, 0.24);
+    --main-soft-shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    --main-card-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+    --main-hover-shadow: 0 24px 56px rgba(0, 0, 0, 0.3);
+    --cover-fill-color: 15, 23, 42;
+    --cover-filter: brightness(0.82) saturate(1.08);
   }
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  user-select: none;
   box-sizing: border-box;
-  -webkit-user-drag: none;
 }
 
 html {
+  min-width: 320px;
   font-size: 16px;
-  
-  // 响应式字体缩放
-  @media screen and (max-width: 1920px) {
-    font-size: 16px;
-  }
-  
-  @media screen and (max-width: 1440px) {
-    font-size: 15px;
-  }
-  
-  @media screen and (max-width: 1200px) {
-    font-size: 14px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    font-size: 13px;
-  }
-  
-  @media screen and (max-width: 480px) {
-    font-size: 12px;
-  }
-  
-  @media screen and (max-width: 320px) {
-    font-size: 11px;
-  }
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   width: 100%;
-  height: 100%;
-  background-color: var(--main-bg-color);
+  min-height: 100%;
+  margin: 0;
+  color: var(--main-text-color);
+  font-family: var(--font-sans);
+  background: var(--main-bg-color);
   overflow: hidden;
-  
-  // 响应式适配
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  
-  // 平滑滚动
-  scroll-behavior: smooth;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 #nuxt-app {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
-  // 响应式容器
-  @media screen and (max-width: 768px) {
-    font-size: 0.9rem;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(180deg, rgba(246, 248, 251, 0.88), rgba(246, 248, 251, 0.96)),
+      var(--app-bg-image) center / cover no-repeat;
+    filter: saturate(0.9);
   }
-  
-  @media screen and (max-width: 480px) {
-    font-size: 0.85rem;
+
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(120deg, rgba(34, 197, 94, 0.08), transparent 35%),
+      linear-gradient(300deg, rgba(14, 165, 233, 0.09), transparent 42%);
   }
+}
+
+.dark-mode #nuxt-app::before {
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.94)),
+    var(--app-bg-image) center / cover no-repeat;
+  filter: saturate(0.72) brightness(0.72);
+}
+
+main {
+  width: 100%;
+  flex: 1;
 }
 
 .n-scrollbar {
   .n-scrollbar-rail {
     right: 0 !important;
   }
+
   .n-scrollbar-rail__scrollbar {
     z-index: 9999 !important;
   }
@@ -104,4 +137,48 @@ body {
 
 .n-back-top {
   z-index: 9999;
+  border: 1px solid var(--mian-border-color);
+  box-shadow: var(--main-card-shadow);
+  backdrop-filter: var(--main-backdrop-blur);
+}
+
+.content-fade-enter-active,
+.fade-enter-active {
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.content-fade-leave-active,
+.fade-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.content-fade-enter-from,
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.content-fade-leave-to,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.15s !important;
+  }
 }

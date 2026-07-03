@@ -1,42 +1,47 @@
 <template>
   <footer id="footer">
-    <n-flex class="link" align="center">
-      <n-button
-        v-for="(item, key, index) in linkData"
-        :key="index"
-        :focusable="false"
-        quaternary
-        circle
-        class="footer-btn"
-        :style="{ animationDelay: `${index * 0.1}s` }"
-        @click="jumpLink(item)"
-      >
-        <template #icon>
-          <Icon :name="`icon:${key}`" />
-        </template>
-      </n-button>
-    </n-flex>
-    <n-flex :size="4" class="text" align="center" vertical>
-      <n-p depth="3">
-        <n-text depth="3" @click="jumpLink(linkData.github)">
+    <div class="footer-shell">
+      <div class="footer-brand">
+        <button type="button" @click="jumpLink(linkData.github)">
           SiteStatus
-        </n-text>
-        Version {{ version }}
-      </n-p>
-      <n-p depth="3">
-        {{ $t("footer.basedOn") }}
-        <n-text depth="3" @click="jumpLink('https://uptimerobot.com/')">
-          {{ $t("uptimeRobot") }}
-        </n-text>
-        {{ $t("footer.interface") }} |
-        {{ $t("footer.checkFrequency") }}
-        {{ $t("footer.fiveMinutes") }}
-      </n-p>
-      <n-p depth="3">
-        Copyright &copy; 2020 - {{ new Date().getFullYear() }}
-        <n-text depth="3" @click="jumpLink(linkData.home)"> devhappys </n-text>
-      </n-p>
-    </n-flex>
+        </button>
+        <span>Version {{ version }}</span>
+      </div>
+
+      <div class="footer-copy">
+        <span>
+          {{ $t("footer.basedOn") }}
+          <button type="button" @click="jumpLink('https://uptimerobot.com/')">
+            {{ $t("uptimeRobot") }}
+          </button>
+          {{ $t("footer.interface") }}
+        </span>
+        <span>
+          {{ $t("footer.checkFrequency") }}
+          {{ $t("footer.fiveMinutes") }}
+        </span>
+        <span>
+          Copyright &copy; 2020 - {{ new Date().getFullYear() }}
+          <button type="button" @click="jumpLink(linkData.home)">devhappys</button>
+        </span>
+      </div>
+
+      <n-flex class="link" align="center" justify="end">
+        <n-button
+          v-for="(item, key, index) in linkData"
+          :key="index"
+          :focusable="false"
+          quaternary
+          circle
+          class="footer-btn"
+          @click="jumpLink(item)"
+        >
+          <template #icon>
+            <Icon :name="`icon:${key}`" />
+          </template>
+        </n-button>
+      </n-flex>
+    </div>
   </footer>
 </template>
 
@@ -53,113 +58,88 @@ const linkData = {
 
 <style lang="scss" scoped>
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 20px 90px;
+  padding: 38px 20px 64px;
   margin-top: auto;
   z-index: 100;
-  opacity: 0;
-  animation: fade-in-up 1s ease-out 0.5s forwards;
-  
+}
+
+.footer-shell {
+  display: grid;
+  grid-template-columns: minmax(160px, auto) minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: center;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: 18px 20px;
+  border: 1px solid var(--mian-border-color);
+  border-radius: 24px;
+  background: var(--main-card-color);
+  box-shadow: var(--main-card-shadow);
+  backdrop-filter: var(--main-backdrop-blur);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  button {
+    padding: 0;
+    border: 0;
+    color: var(--main-text-color);
+    background: transparent;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  span {
+    color: var(--main-muted-color);
+    font-size: 12px;
+  }
+}
+
+.footer-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: var(--main-muted-color);
+  font-size: 12px;
+  line-height: 1.6;
+
+  button {
+    padding: 0;
+    border: 0;
+    color: var(--main-text-color);
+    background: transparent;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+.link {
+  .footer-btn {
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--normal-color) 12%, transparent);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .footer-shell {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .link {
-    .footer-btn {
-      opacity: 0;
-      transform: translateY(20px) scale(0.8);
-      animation: bounce-in-footer 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        z-index: 0;
-      }
-      
-      &:hover {
-        transform: translateY(-5px) scale(1.15) rotate(10deg);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        
-        &::before {
-          width: 100%;
-          height: 100%;
-        }
-        
-        :deep(.n-button__content) {
-          color: var(--text-color-1);
-          position: relative;
-          z-index: 1;
-        }
-      }
-      
-      &:active {
-        transform: translateY(-2px) scale(1.05);
-      }
-      
-      :deep(.n-button__content) {
-        position: relative;
-        z-index: 1;
-        transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-    }
-  }
-  
-  .text {
-    margin-top: 12px;
-    .n-p,
-    .n-text {
-      margin: 0;
-      font-size: 13px;
-      line-height: 26px;
-    }
-    .n-text {
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      
-      &:hover {
-        color: var(--normal-color);
-        transform: scale(1.05);
-      }
-    }
-  }
-}
-
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounce-in-footer {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-5px) scale(1.1);
-  }
-  80% {
-    transform: translateY(2px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    justify-content: flex-start !important;
   }
 }
 </style>

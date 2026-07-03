@@ -9,13 +9,21 @@
   },
   "nav": {
     "about": "このサイトについて",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "theme": "テーマを切り替え",
+    "language": "言語を切り替え",
+    "menu": "メニューを開く"
   },
   "header": {
     "loading": "しばらくお待ちください ...",
     "unknown": "一時的な問題かもしれません。ページをリフレッシュして再試行してください",
     "update": "更新日時",
-    "updateAt": "{time}後に更新されます"
+    "updateAt": "{time}後に更新されます",
+    "metrics": {
+      "total": "監視総数",
+      "normal": "正常稼働",
+      "issues": "要確認"
+    }
   },
   "footer": {
     "basedOn": "基づいています",
@@ -24,6 +32,8 @@
     "fiveMinutes": "5分"
   },
   "card": {
+    "overview": "監視概要",
+    "monitors": "{count} 件の監視",
     "unknownDate": "不明な日付",
     "unknownData": "データなし",
     "percent": "当日の稼働率 {percent}%",
